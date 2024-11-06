@@ -1,14 +1,6 @@
 package com.nodoantivirus.backend.estado_oportunidad.model;
 
-import com.nodoantivirus.backend.oportunidades.model.Oportunidades;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "estado_oportunidad")
@@ -20,13 +12,12 @@ public class EstadoOportunidad {
 
     @ManyToOne
     @JoinColumn(name = "id_oportunidad", nullable = false)
-    private Oportunidades oportunidad;
+    private Oportunidad oportunidad;
 
     @Column(name = "id_oportunidad", nullable = false)
     private Long idOportunidad;
 
     //Getters y setters
-
 
     public Long getId() {
         return id;
@@ -34,14 +25,6 @@ public class EstadoOportunidad {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Oportunidades getOportunidad() {
-        return oportunidad;
-    }
-
-    public void setOportunidad(Oportunidades oportunidad) {
-        this.oportunidad = oportunidad;
     }
 
     public Long getIdOportunidad() {
