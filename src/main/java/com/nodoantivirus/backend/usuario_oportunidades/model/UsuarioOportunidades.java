@@ -12,7 +12,7 @@ public class UsuarioOportunidades {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nommre;
+    private String nombre;
     private String descripcion;
 
 }

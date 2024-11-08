@@ -35,7 +35,7 @@ public class UsuarioOportunidadesController {
     @Operation(summary = "Método para obtener usuarios oportunidades por id.", description = "El único parámetro requerido es el del Id.")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioOportunidades> obtenerPorId(@PathVariable Long id) {
-        Optional<UsuarioOportunidades> usuarioOportunidades = usuarioOportunidadesService.obtetenerUasuarioOportunidadesById(id);
+        Optional<UsuarioOportunidades> usuarioOportunidades = usuarioOportunidadesService.obtenerUsuarioOportunidadesporByIdId(id);
         return usuarioOportunidades.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -43,14 +43,14 @@ public class UsuarioOportunidadesController {
     @Operation(summary = "Método para actualizar un tipo de oportunidad", description = "Parámetros que se pueden editar: nombre y descripción, el id se genera automáticamente asi que no es posible modificarlo.")
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioOportunidades> actualizarUO(@PathVariable Long id, @RequestBody UsuarioOportunidades uODetails) {
-        return ResponseEntity.ok(UsuarioOportunidadesService.actualizarUO(id, uODetails));
+        return ResponseEntity.ok(usuarioOportunidadesService.actualizarUO(id, uODetails));
     }
 
     //Eliminar
     @Operation(summary = "Método para eliminar tipos de oportunidad por id.", description = "El único parámetro requerido es el del Id.")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> elimiUO(@PathVariable Long id) {
-        usuarioOportunidadesService.eliminarUO(id);
+    public ResponseEntity<Void> eliminarUO(@PathVariable Long id) {
+        usuarioOportunidadesService.eliminarUsuarioOportunidades(id);
         return ResponseEntity.noContent().build();
     }
 }

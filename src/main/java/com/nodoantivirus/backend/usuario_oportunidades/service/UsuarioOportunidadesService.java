@@ -44,11 +44,8 @@ public class UsuarioOportunidadesService {
     }
 
     //Eliminar
-    @ArraySliceOperation.Operation(summary = "Método para eliminar usuario oportunidades por id.", description = "El único parámetro requerido es el del Id.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUO(@PathVariable Long id) {
-        usuarioOportunidadesService.eliminarUO(id);
-        return ResponseEntity.noContent().build();
+    public void eliminarUsuarioOportunidades(Long id) {
+        usuarioOportunidadesRepository.deleteById(id);
     }
 
 
