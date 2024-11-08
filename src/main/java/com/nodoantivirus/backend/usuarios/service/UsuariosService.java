@@ -25,9 +25,9 @@ public class UsuariosService {
         return usuariosRepository.findById(id);
     }
 
-    public Usuarios UpdataUsuario(Long id, Usuarios usersDetails){
+    public Usuarios updateUsuarios(Long id, Usuarios detailsUsuarios) {
         Usuarios usuarios = usuariosRepository.findById(id).orElseThrow();
-        usuarios.setNombre(usersDetails.getNombre());
+        usuarios.setNombre(detailsUsuarios.getNombre());
         return usuariosRepository.save(usuarios);
     }
 

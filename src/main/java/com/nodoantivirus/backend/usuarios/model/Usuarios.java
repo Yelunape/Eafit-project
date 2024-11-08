@@ -12,5 +12,8 @@ public class Usuarios {
     private Long id;
 
     private String nombre;
+
+    public Usuarios() {
+    }
 }
 
