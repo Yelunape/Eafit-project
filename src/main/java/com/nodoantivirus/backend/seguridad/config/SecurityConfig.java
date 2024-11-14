@@ -23,7 +23,7 @@ public class SecurityConfig {
                 JwtAuthenticationFilter(authenticationManager, jwtTokenProvider);
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/**").permitAll()
                         .requestMatchers("/api/visitante/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/usuarios/**").hasAnyRole("USER", "ADMIN")

@@ -91,4 +91,8 @@ public class UsuariosService implements UserDetailsService {
     public void deleteUsuario(Long id){
         usuariosRepository.deleteById(id);
     }
+
+    public Usuarios getByCorreo(String correo){
+        return usuariosRepository.findByCorreo(correo);
+    }
 }

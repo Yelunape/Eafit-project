@@ -1,5 +1,6 @@
 package com.nodoantivirus.backend.seguridad.controller;
 
+import java.util.Map;
 import com.nodoantivirus.backend.seguridad.dto.AuthUser;
 import com.nodoantivirus.backend.seguridad.jwt.JwtTokenProvider;
 import com.nodoantivirus.backend.usuarios.model.Usuarios;
@@ -42,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate") // New endpoint for authentication
-    public ResponseEntity<String> authenticate(@RequestBody AuthUser authUser) {
+    public ResponseEntity<Object> authenticate(@RequestBody AuthUser authUser) {
         logger.info(() -> "ingresando a authenticate");
         try {
             // Attempt to authenticate the user
@@ -52,6 +53,9 @@ public class AuthController {
                     String token = jwtTokenProvider.generateToken(authentication);
 
             return ResponseEntity.ok(token);
+            Usuarios users = usuariosService.getByCorreo(authUser.getCorreo());
+            System.out.println("se ha autenticado con exito");
+            return ResponseEntity.ok().body(Map.of("token",token,"role",users.getRoles()));
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         } catch (BadCredentialsException e) {
