@@ -25,7 +25,7 @@ public class UsuarioOportunidadesService {
         return usuarioOportunidadesRepository.save(usuarioOportunidades);
     }
 
-    //Obtener todo
+    //Obtener_todo
     public List<UsuarioOportunidades> obtenerUO() {
         return usuarioOportunidadesRepository.findAll();
     }
@@ -47,6 +47,4 @@ public class UsuarioOportunidadesService {
     public void eliminarUsuarioOportunidades(Long id) {
         usuarioOportunidadesRepository.deleteById(id);
     }
-
-
 }

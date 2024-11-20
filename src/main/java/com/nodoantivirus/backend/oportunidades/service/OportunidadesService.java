@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class OportunidadesService {
+
     @Autowired
     private OportunidadesRepository oportunidadesRepository;
 
@@ -18,7 +19,7 @@ public class OportunidadesService {
         return oportunidadesRepository.save(oportunidades);
     }
 
-    //obtener todo
+    //obtener_todo
     public List<Oportunidades> obtenerOportunidades() {
         return oportunidadesRepository.findAll();
     }
@@ -32,7 +33,6 @@ public class OportunidadesService {
     public Oportunidades actualizarOportunidades(Long id, Oportunidades oportunidadesDetails) {
         Oportunidades oportunidades = oportunidadesRepository.findById(id).orElseThrow();
         oportunidades.setNombre(oportunidadesDetails.getNombre());
-        oportunidades.setDescripcion(oportunidadesDetails.getDescripcion());
         return oportunidadesRepository.save(oportunidades);
     }
 

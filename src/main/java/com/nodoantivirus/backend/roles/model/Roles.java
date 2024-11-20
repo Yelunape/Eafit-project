@@ -1,37 +1,36 @@
 package com.nodoantivirus.backend.roles.model;
 
+import com.nodoantivirus.backend.usuarios.model.Usuarios;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Roles")
+@Getter
+@Setter
 public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
+    private String rol;
 
-    private String name;
+    @OneToMany(mappedBy = "idRole", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Usuarios> usuarios = new ArrayList<>();
 
-    // Constructores, getters y setters
-    public Roles() {}
-
-    public Roles(String name) {
-        this.name = name;
+    // Constructor vacío
+    public Roles() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    // Constructor con argumentos
+    public Roles(Long id, String rol) {
         this.id = id;
+        this.rol = rol;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

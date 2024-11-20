@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/informacionoportunidad")
-
+@RequestMapping("/api/informacionOportunidadController")
 public class InformacionOportunidadController {
+
     @Autowired
     private InformacionOportunidadService informacionOportunidadService;
 
@@ -24,7 +24,7 @@ public class InformacionOportunidadController {
         return informacionOportunidadService.crearInfoOpor(informacionOportunidad);
     }
 
-    //Obtener todo
+    //Obtener_todo
     @Operation(summary = "Método para obtener toda la información de oportunidad", description = "No requiere parámetro.")
     @GetMapping
     public List<InformacionOportunidad> obtenerTodo() {

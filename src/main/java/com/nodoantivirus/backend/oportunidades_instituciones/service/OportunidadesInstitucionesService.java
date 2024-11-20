@@ -27,11 +27,10 @@ public class OportunidadesInstitucionesService {
     }
 
     public OportunidadesInstituciones update(Long id, OportunidadesInstituciones updated) {
-        OportunidadesInstituciones oportunidadInstitucion = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("OportunidadInstitucion not found"));
-        oportunidadInstitucion.setInstitucion(updated.getInstitucion());
-        oportunidadInstitucion.setOportunidad(updated.getOportunidad());
-        return repository.save(oportunidadInstitucion);
+        OportunidadesInstituciones oportunidadesInstituciones = repository.findById(id).orElseThrow(() -> new RuntimeException("OportunidadInstitucion not found"));
+        oportunidadesInstituciones.setIdInstitucion(updated.getIdInstitucion());
+        oportunidadesInstituciones.setIdOportunidad(updated.getIdOportunidad());
+        return repository.save(oportunidadesInstituciones);
     }
 
     public void delete(Long id) {

@@ -26,7 +26,7 @@ public class UbicacionesController {
         return ubicacionesService.crearUbicaciones(ubicaciones);
     }
 
-    //Obtener todo
+    //Obtener_todo
     @Operation(summary = "Método para obtener todos los tipos de ubicaciones", description = "No requiere parámetro.")
     @GetMapping
     public List<Ubicaciones> obtenerTodo() {

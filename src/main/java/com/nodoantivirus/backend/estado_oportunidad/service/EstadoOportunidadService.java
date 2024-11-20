@@ -10,28 +10,29 @@ import java.util.Optional;
 
 @Service
 public class EstadoOportunidadService {
+
     @Autowired
-    private EstadoOportunidadRepository repository;
+    private EstadoOportunidadRepository estadoOportunidadRepository;
 
     public EstadoOportunidad createEstadoOportunidad(EstadoOportunidad estadoOportunidad) {
-        return repository.save(estadoOportunidad);
+        return estadoOportunidadRepository.save(estadoOportunidad);
     }
 
     public List<EstadoOportunidad> getAllEstadoOportunidad() {
-        return repository.findAll();
+        return estadoOportunidadRepository.findAll();
     }
 
     public Optional<EstadoOportunidad> getEstadoOportunidadById(Long id) {
-        return repository.findById(id);
+        return estadoOportunidadRepository.findById(id);
     }
 
     public EstadoOportunidad updateEstadoOportunidad(Long id, EstadoOportunidad estadoOportunidad) {
         estadoOportunidad.setId(id);
-        return repository.save(estadoOportunidad);
+        return estadoOportunidadRepository.save(estadoOportunidad);
     }
 
     public void deleteEstadoOportunidad(Long id) {
-        repository.deleteById(id);
+        estadoOportunidadRepository.deleteById(id);
     }
 }
 

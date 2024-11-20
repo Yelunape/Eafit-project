@@ -31,7 +31,7 @@ public class UbicacionesService {
     //Actualizar
     public Ubicaciones actualizarUbicaciones(Long id, Ubicaciones ubicacionesDetails) {
         Ubicaciones ubicaciones = ubicacionesRepository.findById(id).orElseThrow();
-        ubicaciones.setRegion(ubicacionesDetails.getRegion());
+        ubicaciones.setDireccion(ubicacionesDetails.getDireccion());
         return ubicacionesRepository.save(ubicaciones);
     }
 

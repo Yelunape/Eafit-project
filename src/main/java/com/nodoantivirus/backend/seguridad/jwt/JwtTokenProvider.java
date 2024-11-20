@@ -13,9 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 @Component
 public class JwtTokenProvider {
-    private final String SECRET_KEY = "your_secret_key"; // Change this to asecure key
+    private final String SECRET_KEY = "Backend04*"; // Change this to asecure key
     private final long EXPIRATION_TIME = 86400000; // 1 day in milliseconds
     private final UserDetailsService userDetailsService;
     public JwtTokenProvider(UserDetailsService userDetailsService) {
@@ -23,17 +24,13 @@ public class JwtTokenProvider {
     }
     // Generate a JWT token
     public String generateToken(Authentication authentication) {
-        String username = authentication.getName();
+        String email = authentication.getName();
         Map<String, Object> claims = new HashMap<>();
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(username)
+                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-
-                .setExpiration(new Date(System.currentTimeMillis() +
-
-                        EXPIRATION_TIME))
-
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
 
