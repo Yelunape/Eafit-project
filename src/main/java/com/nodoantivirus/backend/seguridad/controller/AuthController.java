@@ -68,8 +68,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Usuarios usuarios) {
+    public ResponseEntity<Object> register(@RequestBody Usuarios usuarios) {
         usuariosService.createUsuario(usuarios);
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok().body(Map.of("message","User registered successfully"));
     }
 }
