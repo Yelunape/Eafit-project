@@ -1,10 +1,14 @@
 package com.nodoantivirus.backend.auth;
 
+import com.nodoantivirus.backend.seguridad.dto.AuthUser;
 import com.nodoantivirus.backend.seguridad.jwt.JwtTokenProvider;
 import com.nodoantivirus.backend.usuarios.model.Usuarios;
 import com.nodoantivirus.backend.usuarios.service.UsuariosService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+
+import java.util.Map;
+
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +41,17 @@ public class AuthController {
 
     @Operation(summary = "Este Post permite autenticar un usuario", description = "Los parámetros requeridos para autenticar son los de email y password.")
     @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody Usuarios usuarios) {
+    public ResponseEntity<Object> authenticate(@RequestBody AuthUser authUser) {
 
         logger.info(() -> "ingresando a authenticate");
 
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuarios.getEmail(), usuarios.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authUser.getCorreo(), authUser.getContrasena()));
 
-
+            String token =jwtTokenProvider.generateToken(authentication);
             Usuarios users = usuariosService.getByCorreo(authUser.getCorreo());
             System.out.println("se ha autenticado con exito");
-            return ResponseEntity.ok().body(Map.of("token",token,"role",users.getRoles()));
+            return ResponseEntity.ok().body(Map.of("token",token,"role",users.getIdRole()));
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado.");
         } catch (BadCredentialsException e) {
