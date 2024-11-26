@@ -52,7 +52,7 @@ public class AuthController {
 
                     String token = jwtTokenProvider.generateToken(authentication);
 
-            return ResponseEntity.ok(token);
+
             Usuarios users = usuariosService.getByCorreo(authUser.getCorreo());
             System.out.println("se ha autenticado con exito");
             return ResponseEntity.ok().body(Map.of("token",token,"role",users.getRoles()));
