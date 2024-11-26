@@ -1,11 +1,10 @@
-package com.nodoantivirus.backend.seguridad.controller;
+package com.nodoantivirus.backend.auth;
 
-import java.util.Map;
-import com.nodoantivirus.backend.seguridad.dto.AuthUser;
 import com.nodoantivirus.backend.seguridad.jwt.JwtTokenProvider;
 import com.nodoantivirus.backend.usuarios.model.Usuarios;
 import com.nodoantivirus.backend.usuarios.service.UsuariosService;
-
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,52 +23,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private static final Logger logger = (Logger)
 
-    LoggerFactory.getLogger(AuthController.class);
-    
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(AuthController.class);
+
+    @Autowired
     private AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider; 
-    private UsuariosService usuariosService; 
 
-    public AuthController(
-        AuthenticationManager authenticationManager, 
-        JwtTokenProvider jwtTokenProvider,
-        UsuariosService usuariosService
-        ) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.usuariosService = usuariosService;
-    }
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping("/authenticate") // New endpoint for authentication
-    public ResponseEntity<Object> authenticate(@RequestBody AuthUser authUser) {
+    @Autowired
+    private UsuariosService usuariosService;
+
+    @Operation(summary = "Este Post permite autenticar un usuario", description = "Los parámetros requeridos para autenticar son los de email y password.")
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> authenticate(@RequestBody Usuarios usuarios) {
+
         logger.info(() -> "ingresando a authenticate");
-        try {
-            // Attempt to authenticate the user
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authUser.getCorreo(),authUser.getContrasena()));
 
-                    String token = jwtTokenProvider.generateToken(authentication);
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuarios.getEmail(), usuarios.getPassword()));
 
 
             Usuarios users = usuariosService.getByCorreo(authUser.getCorreo());
             System.out.println("se ha autenticado con exito");
             return ResponseEntity.ok().body(Map.of("token",token,"role",users.getRoles()));
         } catch (UsernameNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado.");
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email o contraseña invalida.");
         } catch (Exception e) {
             logger.error(e::getMessage);
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Authentication failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Autenticación fallida");
         }
     }
 
+    @Operation(summary = "Este Post permite registrar un usuario", description = "El rol se asigna automáticamente y el id también.")
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody Usuarios usuarios) {
+
+    public ResponseEntity<String> register(@Valid @RequestBody Usuarios usuarios) {
         usuariosService.createUsuario(usuarios);
-        return ResponseEntity.ok().body(Map.of("message","User registered successfully"));
+        return ResponseEntity.ok("Usuario registrado exitosamente.");
     }
 }

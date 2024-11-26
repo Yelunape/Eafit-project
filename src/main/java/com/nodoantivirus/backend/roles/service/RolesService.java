@@ -2,6 +2,7 @@ package com.nodoantivirus.backend.roles.service;
 
 import com.nodoantivirus.backend.roles.model.Roles;
 import com.nodoantivirus.backend.roles.repository.RolesRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,19 @@ public class RolesService {
     public Roles updateRole(Long id, Roles roleDetails) {
         Roles role = rolesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
-        role.setName(roleDetails.getName());
+        role.setRol(roleDetails.getRol());
         return rolesRepository.save(role);
     }
 
     public void deleteRole(Long id) {
         rolesRepository.deleteById(id);
+    }
+
+    @PostConstruct
+    public void initializeRoles() {
+        if (rolesRepository.findAll().isEmpty()) {
+            rolesRepository.save(new Roles(null, "User"));
+            rolesRepository.save(new Roles(null, "Admin"));
+        }
     }
 }

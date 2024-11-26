@@ -15,30 +15,30 @@ public class CategoriasService {
     private CategoriasRepository categoriasRepository;
 
     //Crear
-    public Categorias crearCateg(Categorias categorias) {
+    public Categorias crearCategorias(Categorias categorias) {
         return categoriasRepository.save(categorias);
     }
 
-    //obtener todo
-    public List<Categorias> obtenerCateg() {
+    //obtenertodo
+    public List<Categorias> obtenerCategorias() {
         return categoriasRepository.findAll();
     }
 
     //Obtener por id
-    public Optional<Categorias> obtenerCategById(Long id) {
+    public Optional<Categorias> obtenerCategoriasById(Long id) {
         return categoriasRepository.findById(id);
     }
 
     //Actualizar
-    public Categorias actualizarCateg(Long id, Categorias categDetails) {
+    public Categorias actualizarCategorias(Long id, Categorias categoriasDetails) {
         Categorias categorias = categoriasRepository.findById(id).orElseThrow();
-        categorias.setCategoria(categDetails.getCategoria());
-        categorias.setCategoria(categDetails.getCategoria());
+        categorias.setCategorias(categoriasDetails.getCategorias());
+        categorias.setCategorias(categoriasDetails.getCategorias());
         return categoriasRepository.save(categorias);
     }
 
     //Eliminar
-    public void eliminarCateg(Long id) {
+    public void eliminarCategorias(Long id) {
         categoriasRepository.deleteById(id);
     }
 }

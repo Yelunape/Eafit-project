@@ -19,7 +19,7 @@ public class TipoOportunidadService {
         return tipoOportunidadRepository.save(tipoOportunidad);
     }
 
-    //obtener todo
+    //obtener_todo
     public List<TipoOportunidad> obtenerTiposOpor() {
         return tipoOportunidadRepository.findAll();
     }

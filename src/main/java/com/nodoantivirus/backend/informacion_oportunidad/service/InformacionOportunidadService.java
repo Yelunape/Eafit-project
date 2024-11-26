@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class InformacionOportunidadService {
+
     @Autowired
     private InformacionOportunidadRepository informacionOportunidadRepository;
 
@@ -18,7 +19,7 @@ public class InformacionOportunidadService {
         return informacionOportunidadRepository.save(informacionOportunidad);
     }
 
-    //obtener todo
+    //obtener_todo
     public List<InformacionOportunidad> obtenerInfoOpor() {
         return informacionOportunidadRepository.findAll();
     }

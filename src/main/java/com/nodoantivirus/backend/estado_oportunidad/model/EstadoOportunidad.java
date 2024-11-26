@@ -1,34 +1,35 @@
 package com.nodoantivirus.backend.estado_oportunidad.model;
 
+import com.nodoantivirus.backend.oportunidades.model.Oportunidades;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Setter
+@Getter
 @Entity
 @Table(name = "estado_oportunidad")
 public class EstadoOportunidad {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String estado;
 
-    @Column(name = "id_oportunidad", nullable = false)
-    private Long idOportunidad;
+    @OneToMany(mappedBy = "idEstado", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Oportunidades> oportunidades = new ArrayList<>();
 
-    // Getters and setters
-
-
-    public Long getId() {
-        return id;
+    // Constructores
+    public EstadoOportunidad() {
     }
 
-    public void setId(Long id) {
+    public EstadoOportunidad(Long id, String estado) {
         this.id = id;
+        this.estado = estado;
     }
 
-    public Long getIdOportunidad() {
-        return idOportunidad;
-    }
-
-    public void setIdOportunidad(Long idOportunidad) {
-        this.idOportunidad = idOportunidad;
-    }
 }
-
