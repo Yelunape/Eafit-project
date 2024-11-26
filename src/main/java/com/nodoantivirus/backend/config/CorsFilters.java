@@ -16,7 +16,7 @@ public class CorsFilters {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Cambia según tus necesidades
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://56j68jcs-8080.use2.devtunnels.ms")); // Cambia según tus necesidades
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
